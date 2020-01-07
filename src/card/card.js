@@ -8,7 +8,7 @@ LICENSE file in the root directory of this source tree.
 /* @flow */
 
 import * as React from 'react';
-import {getOverride, getOverrideProps} from '../helpers/overrides.js';
+import {getOverrides} from '../helpers/overrides.js';
 import {
   Action as StyledAction,
   Body as StyledBody,
@@ -49,48 +49,43 @@ function Card(props: CardsPropsT) {
     Title: TitleOverride,
   } = overrides;
 
-  const Action = getOverride(ActionOverride) || StyledAction;
-  const Body = getOverride(BodyOverride) || StyledBody;
-  const Contents = getOverride(ContentsOverride) || StyledContents;
-  const HeaderImage = getOverride(HeaderImageOverride) || StyledHeaderImage;
-  const Root = getOverride(RootOverride) || StyledRoot;
-  const Thumbnail = getOverride(ThumbnailOverride) || StyledThumbnail;
-  const Title = getOverride(TitleOverride) || StyledTitle;
+  const [Action, actionProps] = getOverrides(ActionOverride, StyledAction);
+  const [Body, bodyProps] = getOverrides(BodyOverride, StyledBody);
+  const [Contents, contentsProps] = getOverrides(
+    ContentsOverride,
+    StyledContents,
+  );
+  const [HeaderImage, headerImageProps] = getOverrides(
+    HeaderImageOverride,
+    StyledHeaderImage,
+  );
+  const [Root, rootProps] = getOverrides(RootOverride, StyledRoot);
+  const [Thumbnail, thumbnailProps] = getOverrides(
+    ThumbnailOverride,
+    StyledThumbnail,
+  );
+  const [Title, titleProps] = getOverrides(TitleOverride, StyledTitle);
 
   const $hasThumbnail = hasThumbnail(props);
   return (
-    <Root
-      data-baseweb="card"
-      {...restProps}
-      {...getOverrideProps(RootOverride)}
-    >
+    <Root data-baseweb="card" {...restProps} {...rootProps}>
       {headerImageSrc && (
         <HeaderImage
           alt={headerImageAlt}
           src={headerImageSrc}
           srcSet={headerImageSrcSet}
-          {...getOverrideProps(HeaderImageOverride)}
+          {...headerImageProps}
         />
       )}
-      <Contents {...getOverrideProps(ContentsOverride)}>
-        {thumbnailSrc && (
-          <Thumbnail
-            src={thumbnailSrc}
-            {...getOverrideProps(ThumbnailOverride)}
-          />
-        )}
+      <Contents {...contentsProps}>
+        {thumbnailSrc && <Thumbnail src={thumbnailSrc} {...thumbnailProps} />}
         {title && (
-          <Title
-            $hasThumbnail={$hasThumbnail}
-            {...getOverrideProps(TitleOverride)}
-          >
+          <Title $hasThumbnail={$hasThumbnail} {...titleProps}>
             {title}
           </Title>
         )}
-        <Body {...getOverrideProps(BodyOverride)}>{children}</Body>
-        {action && (
-          <Action {...getOverrideProps(ActionOverride)}>{action}</Action>
-        )}
+        <Body {...bodyProps}>{children}</Body>
+        {action && <Action {...actionProps}>{action}</Action>}
       </Contents>
     </Root>
   );
