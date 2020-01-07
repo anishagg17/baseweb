@@ -49,6 +49,19 @@ const CardConfig: TConfig = {
       type: PropTypes.String,
       description: 'Image to be displayed in the card.',
     },
+    headerImageAlt: {
+      value: undefined,
+      placeholder: 'An image text description',
+      type: PropTypes.String,
+      description: 'Header image text description alternative.',
+    },
+    headerImageSrcSet: {
+      value: undefined,
+      placeholder:
+        'https://source.unsplash.com/user/erondu/500x200, https://source.unsplash.com/user/erondu/600x300 1.5x',
+      type: PropTypes.String,
+      description: 'One or more header image sources for the user agent.',
+    },
     overrides: {
       value: undefined,
       type: PropTypes.Custom,

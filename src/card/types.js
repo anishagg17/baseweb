@@ -27,6 +27,10 @@ export type CardsPropsT = {
   +hasThumbnail: ({+thumbnail?: string}) => boolean,
   /** Image src to be positioned at the top of the Card. */
   +headerImage?: string,
+  /** Possible header image text description alternative. */
+  +headerImageAlt?: string,
+  /** Possible header image set of source sizes. */
+  +headerImageSrcSet?: string,
   +overrides: CardComponentsT,
   /** Image src that by default is rendered to the side of children content. */
   +thumbnail?: string,

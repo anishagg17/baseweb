@@ -30,7 +30,9 @@ function Card(props: CardsPropsT) {
     action,
     children,
     hasThumbnail,
-    headerImage,
+    headerImage: headerImageSrc,
+    headerImageAlt,
+    headerImageSrcSet,
     thumbnail: thumbnailSrc,
     title,
     overrides,
@@ -62,9 +64,11 @@ function Card(props: CardsPropsT) {
       {...restProps}
       {...getOverrideProps(RootOverride)}
     >
-      {headerImage && (
+      {headerImageSrc && (
         <HeaderImage
-          src={headerImage}
+          alt={headerImageAlt}
+          src={headerImageSrc}
+          srcSet={headerImageSrcSet}
           {...getOverrideProps(HeaderImageOverride)}
         />
       )}

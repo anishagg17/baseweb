@@ -20,8 +20,36 @@ test('Card - basic functionality', () => {
 
   const wrapper = mount(<Card {...props}>Card body</Card>);
 
-  // Renders input, label and caption
+  // Renders title, header image, thumbnail and action
   expect(wrapper.find('img')).toHaveLength(2);
+});
+
+test('Card - img srcset', () => {
+  const headerImageSrcSet =
+    'https://source.unsplash.com/user/erondu/500x200, https://source.unsplash.com/user/erondu/600x300 1.5x';
+  const props = {
+    headerImage: headerImg,
+    headerImageSrcSet,
+    title: 'Card title',
+  };
+
+  const wrapper = mount(<Card {...props}>Card body</Card>);
+  // Renders title, header image with srcset prop
+  expect(wrapper.find('img').prop('srcSet')).toEqual(headerImageSrcSet);
+});
+
+test('Card - img alt', () => {
+  const headerImageAlt = 'Card Alt Desc';
+  const props = {
+    headerImage: '#',
+    headerImageAlt,
+    title: 'Card title',
+  };
+
+  const wrapper = mount(<Card {...props}>Card body</Card>);
+
+  // Renders title and header image with alt prop
+  expect(wrapper.find('img').prop('alt')).toEqual(headerImageAlt);
 });
 
 test('Card - no images', () => {
@@ -32,6 +60,6 @@ test('Card - no images', () => {
 
   const wrapper = mount(<Card {...props}>Card body</Card>);
 
-  // Renders input, label and caption
+  // Renders title and action without images
   expect(wrapper.find('img')).toHaveLength(0);
 });
